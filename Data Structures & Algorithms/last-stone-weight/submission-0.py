@@ -1,0 +1,19 @@
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+
+        heapq.heapify_max(stones)
+
+        while len(stones) > 1 :
+            # get 2 heaviest stones
+            s1 = heapq.heappop_max(stones)
+            s2 = heapq.heappop_max(stones)
+
+            # smash
+            if s1 > s2 :
+                heapq.heappush_max(stones, s1 - s2)
+            elif s2 > s1 :
+                heapq.heappush_max(stones, s2 - s1)
+
+        if len(stones) == 1 :
+            return heapq.heappop_max(stones)
+        return 0
